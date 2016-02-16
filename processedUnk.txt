@@ -1,0 +1,10 @@
+<s> a b <unk> </s> <s>
+a a , a a b b <unk> </s> <s>
+a a , b b b b <unk> </s> <s>
+a a <unk> , b a b </s> <s>
+a a , a a a </s> <s> 
+b a a , b b </s> <s> 
+b b a , a a </s> <s>
+b b <unk> </s> <s>
+b b </s> <s>
+b </s> <s>

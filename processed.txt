@@ -1,2 +1,10 @@
-hello </s> <s> my name is kevin
-and i like pickles </s> <s>
+<s> a b c </s> <s>
+a a , a a b b d </s> <s>
+a a , b b b b e </s> <s>
+a a f , b a b </s> <s>
+a a , a a a </s> <s> 
+b a a , b b </s> <s> 
+b b a , a a </s> <s>
+b b g </s> <s>
+b b </s> <s>
+b </s> <s>
