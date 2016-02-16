@@ -1,44 +1,43 @@
 import java.io.*;
+import java.io.BufferedReader;
 import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
 	// write your code here
-        File file = new File("corpus.txt");
-        BufferedReader buffer = null;
-        Charset encoding = Charset.defaultCharset();
-        try{
-            InputStream fis = new FileInputStream(file);
-            Reader reader = new InputStreamReader(fis, encoding);
-            buffer = new BufferedReader(reader);
-        }
-        catch (FileNotFoundException e){
-
-        }
-        preprocess(buffer);
-
+        //File file = new File("/home/kevin/Documents/CS1671/CS1671-Assignment-2/src/corpus.txt");
+        File file = new File("test.txt");
+        File processedFile = readFile(file);
+        Unigram unigram = new Unigram(processedFile);
     }
-    private static File preprocess(BufferedReader b){
-        File f = new File("processed.txt");
+
+    private static File readFile(File f){
+        Charset encoding = Charset.defaultCharset();
+        File processed = null;
         try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+            InputStream fis = new FileInputStream(f);
+            Reader reader = new InputStreamReader(fis, encoding);
+            BufferedReader buffer = new BufferedReader(reader);
+            processed = new File("processed.txt");
+            PrintWriter writer = new PrintWriter(processed);
             String inputLine;
-            while((inputLine=b.readLine())!=null){
-                System.out.println("aiejf");
+            while((inputLine=buffer.readLine())!=null) {
                 inputLine = inputLine.toLowerCase();
                 Pattern period = Pattern.compile("\\.");
                 Matcher matcher = period.matcher(inputLine);
                 inputLine = matcher.replaceAll(" </s> <s>");
-                System.out.println(inputLine);
-                writer.write(inputLine);
+                writer.println(inputLine);
             }
+            writer.close();
         }
-        catch(Exception e){
+        catch (IOException e){
 
         }
-        return f;
+        assert processed != null;
+        return processed;
     }
+
 }

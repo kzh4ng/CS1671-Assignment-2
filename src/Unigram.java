@@ -20,6 +20,15 @@ public class Unigram {
             InputStream fis = new FileInputStream(textFile);
             Reader reader = new InputStreamReader(fis, Charset.defaultCharset());
             br = new BufferedReader(reader);
+            String line;
+            String words[];
+            while((line = br.readLine()) != null ){
+                words = line.split("\\s");
+                for (String s : words){
+                    vocab.add(s);
+                    count.put(s, count.get(s) + 1);
+                }
+            }
         }
         catch (Exception e){
 
