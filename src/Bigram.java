@@ -7,7 +7,7 @@ import java.util.HashSet;
  * Created by kevin on 2/16/16.
  */
 public class Bigram {
-    public HashMap<String, HashMap<String, Double>> counts = new HashMap<>();
+    public HashMap<String, HashMap<String, Double>> counts = new HashMap<>(); //first string is current word, second is previous
     public HashMap<String, Double> unigramCounts;
     public Unigram unigram;
 
@@ -25,27 +25,27 @@ public class Bigram {
             boolean firstWord = true;
             while((line = br.readLine()) != null ){
                 words = line.split("\\s");
-                for (String s : words){
+                for (String word : words){
                     if(firstWord){
-                        previousWord = s;
+                        previousWord = word;
                         firstWord = false;
                         continue;
                     }
                     HashMap<String, Double> innerCounts;
-                    if (counts.containsKey(previousWord)) {
-                        innerCounts = counts.get(previousWord);
-                        if(innerCounts.containsKey(s)){
-                            innerCounts.put(s, innerCounts.get(s) + 1);
+                    if (counts.containsKey(word)) {
+                        innerCounts = counts.get(word);
+                        if(innerCounts.containsKey(previousWord)){
+                            innerCounts.put(previousWord, innerCounts.get(previousWord) + 1);
                         }
                         else{
-                            innerCounts.put(s, 1.0);
+                            innerCounts.put(previousWord, 1.0);
                         }
                     } else {
                         innerCounts = new HashMap<>();
-                        innerCounts.put(s, 1.0);
-                        counts.put(previousWord, innerCounts);
+                        innerCounts.put(previousWord, 1.0);
+                        counts.put(word, innerCounts);
                     }
-                    previousWord = s;
+                    previousWord = word;
                 }
             }
         }
@@ -58,30 +58,27 @@ public class Bigram {
         String words[] = s.split("\\s");
         boolean firstWord = true;
         String previousWord = "";
-        for(String str :words){
+        for(String word :words){
             if(firstWord){
                 firstWord = false;
-                previousWord = str;
+                previousWord = word;
                 continue;
             }
             double wordProbability = 0;
-            if(this.counts.containsKey(previousWord)){                //if hashtable contains word
-                if(this.counts.get(previousWord).containsKey(str)){
-                    wordProbability = this.counts.get(previousWord).get(str)/unigramCounts.get(str);
+            HashMap<String, Double> innerCount;
+            if(this.counts.containsKey(word)){                //if hashtable contains word
+                innerCount = this.counts.get(word);
+                if(innerCount.containsKey(previousWord)){       //if second hashtable contains previousWord
+                    wordProbability = innerCount.get(previousWord)/unigramCounts.get(word);
                 }
                 else{
-                    if(this.counts.get(previousWord).containsKey("<unk>")){
-                        wordProbability = this.counts.get(previousWord).get("<unk>")/unigramCounts.get("<unk>");
-                    }
-                    else{
-                        //wordProbability = 0;
-                    }
+                    wordProbability = 0.0;
                 }
             }
             else{                                           //else use the unknown count
-                wordProbability = this.counts.get("<unk>").get("<unk>")/unigramCounts.get("<unk>");
+                    wordProbability = 0.0;
             }
-            stringProbability = stringProbability + log(wordProbability);
+            stringProbability = stringProbability - log(wordProbability);
         }
         return stringProbability;
     }

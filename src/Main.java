@@ -13,14 +13,16 @@ public class Main {
         File processedFile = readFile(file);
         Unigram unigram = new Unigram(processedFile, 1);
         double a = unigram.calculateLikelihood("<s> a a </s>");
-        NGramProcessor processor = new NGramProcessor();
-        File processed = processor.insertUnknowns(processedFile, 1);
-        Bigram bigram = new Bigram(processed, 1);
+        //NGramProcessor processor = new NGramProcessor();
+        //File processed = processor.insertUnknowns(processedFile, 1);
+        Bigram bigram = new Bigram(processedFile, 1);
+        Trigram trigram = new Trigram(processedFile, 1);
         double d = bigram.calculateLikelihood("<s> a a </s>");
-        System.out.println(a+ "  " + d);
+        double c = trigram.calculateLikelihood("<s> a a </s>");
+        System.out.println(a+ "  " + d + "   " + c);
     }
 
-    private static File readFile(File f){
+    private static File readFile(File f){               //creates a processed.txt file that inserts sentence end markers and a space in between markers
         Charset encoding = Charset.defaultCharset();
         File processed = null;
         try{

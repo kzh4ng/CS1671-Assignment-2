@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../stanford-ner-2015-12-09/lib/jollyday-0.4.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../stanford-ner-2015-12-09/lib/joda-time.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../stanford-ner-2015-12-09/lib/slf4j-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../stanford-ner-2015-12-09/lib/stanford-ner-resources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../stanford-ner-2015-12-09/lib/slf4j-simple.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -63,7 +63,7 @@ public class Unigram {
             else{                                           //else use the unknown count
                 wordProbability = ((double) this.count.get("<unk>"))/((double) totalNumberOfWords);
             }
-            stringProbability = stringProbability + log(wordProbability);
+            stringProbability = stringProbability - log(wordProbability);
         }
         return stringProbability;
     }
